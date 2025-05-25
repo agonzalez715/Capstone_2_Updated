@@ -1,50 +1,68 @@
 <!--
   frontend/index.html
-  
-  Entry point for the Movie Search & Reviews app. Serves the UI and loads
-  the associated JavaScript module (index.js) to handle all interactions.
+
+  The main HTML entry point for the Movie Search & Reviews React app.
+  Loads React, ReactDOM, and Babel via CDN, then mounts the React component into #root.
 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Meta tags for character encoding and responsive design -->
+    <!-- Meta tag for character encoding: ensures correct interpretation of text. -->
     <meta charset="UTF-8" />
+
+    <!--
+      Viewport meta tag makes the page responsive on mobile devices:
+      - width=device-width: match the screen’s width in device-independent pixels
+      - initial-scale=1.0: set initial zoom level
+    -->
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
 
-    <!-- Page title shown in the browser tab -->
+    <!-- Page title displayed in the browser tab -->
     <title>Movie Search & Reviews</title>
 
     <!--
-      Inline CSS styles for quick prototyping. In production, consider
-      moving to a separate CSS file or a UI framework.
+      Inline CSS styles for layout and basic UI elements.
+      In a production app, consider moving these to a separate stylesheet.
     -->
     <style>
-      /* Page layout: centered with max width */
+      /* Center page content and set max width for readability */
       body {
         font-family: sans-serif;
         max-width: 800px;
         margin: 2rem auto;
       }
 
-      /* Each movie result displayed as a flex container */
+      /* Add space below the search form */
+      form {
+        margin-bottom: 1rem;
+      }
+
+      /* Style for text input: padding and width */
+      input {
+        padding: 0.5rem;
+        width: 70%;
+      }
+
+      /* Style for buttons: padding and margin */
+      button {
+        padding: 0.5rem 1rem;
+        margin-left: 0.5rem;
+      }
+
+      /* Movie result card layout: flex container */
       .movie {
         display: flex;
         align-items: flex-start;
         margin-bottom: 1.5rem;
       }
 
-      /* Poster thumbnails for movies */
+      /* Poster image sizing and spacing */
       .movie img {
         width: 100px;
         margin-right: 1rem;
-      }
-
-      /* Info section next to poster */
-      .movie-info {
-        flex: 1;
       }
 
       /* Spacing below movie title */
@@ -52,58 +70,63 @@
         margin: 0 0 0.5rem;
       }
 
-      /* Action buttons container spacing */
-      .actions button {
-        margin-top: 0.5rem;
+      /* Add margin between pagination buttons */
+      .pagination button {
+        margin: 0 0.25rem;
       }
 
-      /* Container for reviews section, separated from search results */
+      /* Container for reviews section: separation from search UI */
       #reviews-container {
         margin-top: 2rem;
         border-top: 1px solid #ccc;
         padding-top: 1rem;
       }
 
-      /* Individual review styling */
+      /* Review card styling: bottom border and padding */
       .review {
         margin-bottom: 1rem;
         padding-bottom: 0.5rem;
         border-bottom: 1px dashed #ddd;
       }
 
-      /* Review form textarea sizing */
-      .review-form textarea {
+      /* Textarea sizing for the review form */
+      textarea {
         width: 100%;
         height: 4rem;
+        margin-bottom: 0.5rem;
       }
     </style>
   </head>
   <body>
-    <!-- Main heading for the app -->
-    <h1>Movie Search & Reviews</h1>
+    <!--
+      Root div where the React application will be mounted.
+      ReactDOM.render(...) will target this element.
+    -->
+    <div id="root"></div>
 
-    <!-- Search form for movie keywords -->
-    <form id="search-form">
-      <input
-        type="text"
-        id="search-input"
-        placeholder="Enter movie keyword"
-        style="padding:0.5rem; width:70%;"
-      />
-      <button type="submit" style="padding:0.5rem 1rem;">Search</button>
-    </form>
+    <!--
+      Load React and ReactDOM from a CDN for development.
+      In production, use the production builds for better performance.
+    -->
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
 
-    <!-- Error messages displayed here -->
-    <div id="error" style="color:red; margin-top:1rem;"></div>
-    <!-- Container where search results will be injected -->
-    <div id="results" style="margin-top:1.5rem;"></div>
-    <!-- Pagination controls (page buttons) inserted here -->
-    <div class="pagination" id="pagination"></div>
+    <!--
+      Babel standalone compiles our JSX in the browser on the fly.
+      This simplifies setup (no build step) but is not recommended for production.
+    -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <!-- Container for review UI (form + list) for selected movie -->
-    <div id="reviews-container"></div>
-
-    <!-- Load the JavaScript module that implements all interactive behavior -->
-    <script src="index.js" type="module"></script>
+    <!--
+      Our React component code in JSX format.
+      Babel will transform this into regular JavaScript at runtime.
+    -->
+    <script type="text/babel" src="index.jsx"></script>
   </body>
 </html>
